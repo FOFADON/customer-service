@@ -102,7 +102,7 @@
     <div class="hero">
       <p class="eyebrow">2026 雙11優惠 · 11/02 — 11/16</p>
       <h1>面膜訂單試算</h1>
-      <p class="lead">輸入盒數，自動計算運費與總金額，複製訊息即可回覆顧客。</p>
+      <p class="lead">輸入亮白與保濕面膜的片數，自動依散裝或10片組計價、折扣並計算運費。</p>
       <div class="expired" id="expired" hidden>
         這檔雙11活動已過期，請先確認活動是否延長，以及目前價格與運費是否正確。
         <label><input type="checkbox" id="priceChecked"> 我已核對目前價格及活動條件</label>
@@ -117,27 +117,28 @@
           <input class="text-field" id="customer" placeholder="例如：陳老師" maxlength="30" autocomplete="off">
         </div>
         <hr class="section-rule">
+        <p class="subline">同款每滿10片算一組：散裝120元／片，10片組原價999元、活動價390元；不足10片的剩餘片數按散裝價計。</p>
         <div id="products">
           <div class="product">
-            <div class="product-info"><div class="product-name">亮白面膜</div><div class="product-unit">10片／盒 · 活動價每盒390元</div></div>
+            <div class="product-info"><div class="product-name">亮白面膜</div><div class="product-unit">散裝120元／片 · 10片組特價390元</div></div>
             <div class="stepper">
-              <button type="button" data-target="bright" data-step="-1" aria-label="亮白面膜減一盒">−</button>
-              <input type="number" id="bright" aria-label="亮白面膜盒數" min="0" max="999" step="1" inputmode="numeric" value="2">
-              <button type="button" data-target="bright" data-step="1" aria-label="亮白面膜加一盒">+</button>
+              <button type="button" data-target="bright" data-step="-1" aria-label="亮白面膜減一片">−</button>
+              <input type="number" id="bright" aria-label="亮白面膜片數" min="0" max="9999" step="1" inputmode="numeric" value="20">
+              <button type="button" data-target="bright" data-step="1" aria-label="亮白面膜加一片">+</button>
             </div>
           </div>
           <div class="product">
-            <div class="product-info"><div class="product-name">保濕面膜</div><div class="product-unit">10片／盒 · 活動價每盒390元</div></div>
+            <div class="product-info"><div class="product-name">保濕面膜</div><div class="product-unit">散裝120元／片 · 10片組特價390元</div></div>
             <div class="stepper">
-              <button type="button" data-target="moisture" data-step="-1" aria-label="保濕面膜減一盒">−</button>
-              <input type="number" id="moisture" aria-label="保濕面膜盒數" min="0" max="999" step="1" inputmode="numeric" value="2">
-              <button type="button" data-target="moisture" data-step="1" aria-label="保濕面膜加一盒">+</button>
+              <button type="button" data-target="moisture" data-step="-1" aria-label="保濕面膜減一片">−</button>
+              <input type="number" id="moisture" aria-label="保濕面膜片數" min="0" max="9999" step="1" inputmode="numeric" value="20">
+              <button type="button" data-target="moisture" data-step="1" aria-label="保濕面膜加一片">+</button>
             </div>
           </div>
         </div>
         <div class="small-actions">
-          <button type="button" class="soft-button" id="clear">清空盒數</button>
-          <button type="button" class="soft-button" id="example">帶入 2＋2 範例</button>
+          <button type="button" class="soft-button" id="clear">清空片數</button>
+          <button type="button" class="soft-button" id="example">帶入 20＋20 片範例</button>
         </div>
         <hr class="section-rule">
         <div class="field-group">
@@ -153,7 +154,9 @@
         <details class="advanced">
           <summary>價格與運費設定</summary>
           <div class="advanced-grid">
-            <div><label for="unitPrice">每盒特價（元）</label><input id="unitPrice" type="number" min="1" max="99999" value="390"></div>
+            <div><label for="loosePrice">散裝每片原價（元）</label><input id="loosePrice" type="number" min="1" max="99999" value="120"></div>
+            <div><label for="packPrice">10片組原價（元）</label><input id="packPrice" type="number" min="1" max="99999" value="999"></div>
+            <div><label for="discountPrice">10片組活動價（元）</label><input id="discountPrice" type="number" min="1" max="99999" value="390"></div>
             <div><label for="threshold">免運門檻（元）</label><input id="threshold" type="number" min="0" max="9999999" value="3000"></div>
             <div class="full"><label for="shippingCost">未滿免運門檻運費（元）</label><input id="shippingCost" type="number" min="0" max="99999" value="150"></div>
           </div>
@@ -163,7 +166,11 @@
       <div class="right-stack">
         <section class="card summary-card" aria-labelledby="summary-heading">
           <div class="card-heading"><span class="count-label">02</span><h2 id="summary-heading">金額試算</h2></div>
-          <div class="sum-row"><span>面膜總盒數</span><strong id="qtyTotal">4 盒</strong></div>
+          <div class="sum-row"><span>面膜總片數</span><strong id="qtyTotal">40 片</strong></div>
+          <div class="sum-row"><span>10片組</span><strong id="packCount">4 組</strong></div>
+          <div class="sum-row"><span>散裝片數</span><strong id="looseCount">0 片</strong></div>
+          <div class="sum-row"><span>折扣前商品金額</span><strong id="originalSubtotal">3,996元</strong></div>
+          <div class="sum-row"><span>10片組活動折抵</span><strong id="discountAmount">−2,436元</strong></div>
           <div class="sum-row"><span>商品金額</span><strong id="subtotal">1,560元</strong></div>
           <div class="sum-row"><span>運費 <span class="tag" id="shippingTag">未滿免運</span></span><strong id="shipping">150元</strong></div>
           <div class="sum-total"><span>應付總額</span><strong id="total">1,710元</strong></div>
@@ -187,91 +194,104 @@
   <script>
     "use strict";
     const $ = id => document.getElementById(id);
-    const MAX_QTY = 999;
-    const money = n => Number(n).toLocaleString("zh-TW", {maximumFractionDigits: 0}) + "元";
-    const safeInt = (raw, max) => {
-      const n = Number(raw);
-      return Number.isFinite(n) ? Math.min(max, Math.max(0, Math.trunc(n))) : 0;
-    };
-    function calc({bright, moisture, unitPrice, threshold, shippingCost}) {
-      const boxes = bright + moisture;
-      const subtotal = boxes * unitPrice;
-      const qualifiesFreeShipping = boxes > 0 && subtotal >= threshold;
-      const shipping = boxes === 0 || qualifiesFreeShipping ? 0 : shippingCost;
-      return {boxes, subtotal, shipping, qualifiesFreeShipping, total: subtotal + shipping};
+    const MAX_QTY=9999;
+    const money=n=>Number(n).toLocaleString("zh-TW",{maximumFractionDigits:0})+"元";
+    const safeInt=(raw,max)=>{const n=Number(raw);return Number.isFinite(n)?Math.min(max,Math.max(0,Math.trunc(n))):0;};
+    const splitPieces=n=>({packs:Math.floor(n/10),loose:n%10});
+    function calc({bright,moisture,loosePrice,packPrice,discountPrice,threshold,shippingCost}){
+      const brightParts=splitPieces(bright),moistureParts=splitPieces(moisture);
+      const pieces=bright+moisture,packs=brightParts.packs+moistureParts.packs,loose=brightParts.loose+moistureParts.loose;
+      const originalSubtotal=packs*packPrice+loose*loosePrice,discountedPackPrice=Math.min(packPrice,discountPrice);
+      const discount=packs*(packPrice-discountedPackPrice),subtotal=originalSubtotal-discount;
+      const qualifiesFreeShipping=pieces>0&&subtotal>=threshold;
+      const shipping=pieces===0||qualifiesFreeShipping?0:shippingCost;
+      return {pieces,packs,loose,brightParts,moistureParts,originalSubtotal,discountedPackPrice,discount,subtotal,
+        shipping,qualifiesFreeShipping,total:subtotal+shipping};
     }
-    function messageText(order) {
-      if (!order.boxes || !order.unitPrice) return "請先輸入訂購盒數及有效的活動單價。";
-      const lines = [];
-      const greeting = $("customer").value.trim();
-      lines.push((greeting || "您好").replace(/[，。\s]+$/, "") + (greeting ? "您好，" : "，") + "以下為面膜訂購明細：", "");
-      if (order.bright > 0) lines.push("亮白面膜：" + order.bright + "盒");
-      if (order.moisture > 0) lines.push("保濕面膜：" + order.moisture + "盒");
-      lines.push("共" + order.boxes + "盒，活動價每盒" + money(order.unitPrice) + "（10片裝）。");
-      lines.push("商品金額：" + money(order.subtotal));
-      lines.push("運費：" + (order.qualifiesFreeShipping ? "免運（滿" + money(order.threshold) + "）" : money(order.shipping) + "（滿" + money(order.threshold) + "免運）"));
-      lines.push("總金額：" + money(order.total), "");
-      const availability = $("availability").value;
-      if (availability === "next") lines.push("目前面膜預計下週到貨。");
-      if (availability === "stock") lines.push("目前面膜有現貨。");
-      if (availability === "unknown") lines.push("目前面膜尚未到貨，到貨時間待確認。");
-      if (availability === "custom") lines.push($("customAvailability").value.trim() || "到貨時間將另行通知。");
-      if (availability === "stock") {
-        lines.push("若您確認訂購，可先安排匯款，確認入帳後將安排寄送。");
-      } else {
-        lines.push("若您確認訂購，可先安排匯款，確認入帳後會先為您保留訂單，待商品到貨後安排寄送。");
+    function messageText(order){
+      if(!order.pieces||!order.loosePrice||!order.packPrice||!order.discountPrice)return "請先輸入訂購片數及有效的商品價格。";
+      const lines=[],greeting=$("customer").value.trim().replace(/[，。\s]+$/,"").replace(/您好$/,"");
+      lines.push((greeting?greeting+"您好，":"您好，")+"以下為面膜訂購明細：","");
+      for(const [name,qty,details] of [["亮白面膜",order.bright,order.brightParts],["保濕面膜",order.moisture,order.moistureParts]]){
+        if(!qty)continue;
+        const part=[];
+        if(details.packs)part.push("10片組"+details.packs+"組");
+        if(details.loose)part.push("散裝"+details.loose+"片");
+        lines.push(name+"："+qty+"片（"+part.join("、")+"）");
       }
-      lines.push("", "本活動不適用其他優惠及折扣。");
+      lines.push("","散裝每片"+money(order.loosePrice)+"；10片組原價"+money(order.packPrice)+
+        "，活動特價"+money(order.discountedPackPrice)+"。");
+      lines.push("折扣前商品金額："+money(order.originalSubtotal));
+      if(order.discount)lines.push("10片組活動折抵：－"+money(order.discount));
+      lines.push("商品金額："+money(order.subtotal));
+      lines.push("運費："+(order.qualifiesFreeShipping?"免運（滿"+money(order.threshold)+"）":
+        money(order.shipping)+"（滿"+money(order.threshold)+"免運）"));
+      lines.push("總金額："+money(order.total),"");
+      const availability=$("availability").value;
+      if(availability==="next")lines.push("目前面膜預計下週到貨。");
+      if(availability==="stock")lines.push("目前面膜有現貨。");
+      if(availability==="unknown")lines.push("目前面膜尚未到貨，到貨時間待確認。");
+      if(availability==="custom")lines.push($("customAvailability").value.trim()||"到貨時間將另行通知。");
+      lines.push(availability==="stock"?"若您確認訂購，可先安排匯款，確認入帳後將安排寄送。":
+        "若您確認訂購，可先安排匯款，確認入帳後會先為您保留訂單，待商品到貨後安排寄送。");
+      lines.push("","本活動不適用其他優惠及折扣。");
       return lines.join("\n");
     }
-    let lastGenerated = "";
-    function update() {
-      const bright = safeInt($("bright").value, MAX_QTY);
-      const moisture = safeInt($("moisture").value, MAX_QTY);
-      const unitPrice = safeInt($("unitPrice").value, 99999);
-      const threshold = safeInt($("threshold").value, 9999999);
-      const shippingCost = safeInt($("shippingCost").value, 99999);
-      const order = {bright, moisture, unitPrice, threshold, shippingCost, ...calc({bright, moisture, unitPrice, threshold, shippingCost})};
-      $("qtyTotal").textContent = order.boxes + " 盒";
-      $("subtotal").textContent = money(order.subtotal);
-      $("shipping").textContent = order.shipping ? money(order.shipping) : "免運";
-      $("total").textContent = money(order.total);
-      $("shippingTag").textContent = order.qualifiesFreeShipping ? "已達免運" : "未滿免運";
-      $("shippingHint").textContent = order.boxes === 0 ? "請先輸入面膜盒數。" : order.qualifiesFreeShipping ? "已達免運門檻，本次訂單免收運費。" : "訂單滿" + money(threshold) + "享免運優惠，目前距免運還差" + money(Math.max(0, threshold - order.subtotal)) + "。";
-      $("customAvailability").hidden = $("availability").value !== "custom";
-      lastGenerated = messageText(order);
-      $("messageBox").value = lastGenerated;
-      $("copy").disabled = !order.boxes || !order.unitPrice || (expired && !$("priceChecked").checked);
+    function update(){
+      const bright=safeInt($("bright").value,MAX_QTY),moisture=safeInt($("moisture").value,MAX_QTY);
+      const loosePrice=safeInt($("loosePrice").value,99999),packPrice=safeInt($("packPrice").value,99999);
+      const discountPrice=safeInt($("discountPrice").value,99999),threshold=safeInt($("threshold").value,9999999);
+      const shippingCost=safeInt($("shippingCost").value,99999);
+      const order={bright,moisture,loosePrice,packPrice,discountPrice,threshold,shippingCost,
+        ...calc({bright,moisture,loosePrice,packPrice,discountPrice,threshold,shippingCost})};
+      $("qtyTotal").textContent=order.pieces+" 片";
+      $("packCount").textContent=order.packs+" 組";
+      $("looseCount").textContent=order.loose+" 片";
+      $("originalSubtotal").textContent=money(order.originalSubtotal);
+      $("discountAmount").textContent=order.discount?"−"+money(order.discount):money(0);
+      $("subtotal").textContent=money(order.subtotal);
+      $("shipping").textContent=order.pieces?(order.shipping?money(order.shipping):"免運"):"—";
+      $("total").textContent=money(order.total);
+      $("shippingTag").textContent=!order.pieces?"尚無商品":order.qualifiesFreeShipping?"已達免運":"未滿免運";
+      $("shippingHint").textContent=!order.pieces?"請先輸入面膜片數。":
+        order.qualifiesFreeShipping?"已達免運門檻，本次訂單免收運費。":
+        "訂單滿"+money(threshold)+"享免運優惠，目前距免運還差"+money(Math.max(0,threshold-order.subtotal))+"。";
+      $("customAvailability").hidden=$("availability").value!=="custom";
+      $("messageBox").value=messageText(order);
+      $("copy").disabled=!order.pieces||!loosePrice||!packPrice||!discountPrice||
+        discountPrice>packPrice||(expired&&!$("priceChecked").checked);
       $("copy").classList.remove("success");
-      $("copy").textContent = "複製訊息";
-      $("copyStatus").textContent = "";
+      $("copy").textContent="複製訊息";
+      $("copyStatus").textContent=discountPrice>packPrice?"活動價不可高於10片組原價，請先調整。":"";
     }
     const parts = new Intl.DateTimeFormat("en-US", {timeZone: "Asia/Taipei", year: "numeric", month: "2-digit", day: "2-digit"}).formatToParts(new Date());
     const dateParts = Object.fromEntries(parts.filter(p => ["year", "month", "day"].includes(p.type)).map(p => [p.type, p.value]));
     const todayTaiwan = dateParts.year + "-" + dateParts.month + "-" + dateParts.day;
     const expired = todayTaiwan > "2026-11-16";
     $("expired").hidden = !expired;
-    for (const id of ["bright", "moisture", "unitPrice", "threshold", "shippingCost", "customer", "customAvailability"]) {
-      $(id).addEventListener("input", update);
+    for(const id of ["bright","moisture","loosePrice","packPrice","discountPrice",
+                      "threshold","shippingCost","customer","customAvailability"]){
+      $(id).addEventListener("input",update);
     }
-    $("availability").addEventListener("change", update);
-    $("priceChecked").addEventListener("change", update);
-    for (const btn of document.querySelectorAll("[data-target]")) {
-      btn.addEventListener("click", () => {
-        const input = $(btn.dataset.target);
-        input.value = Math.max(0, Math.min(MAX_QTY, safeInt(input.value, MAX_QTY) + Number(btn.dataset.step)));
+    $("availability").addEventListener("change",update);
+    $("priceChecked").addEventListener("change",update);
+    for(const btn of document.querySelectorAll("[data-target]")){
+      btn.addEventListener("click",()=>{
+        const input=$(btn.dataset.target);
+        input.value=Math.max(0,Math.min(MAX_QTY,safeInt(input.value,MAX_QTY)+Number(btn.dataset.step)));
         update();
       });
     }
-    for (const id of ["bright", "moisture", "unitPrice", "threshold", "shippingCost"]) {
-      $(id).addEventListener("change", () => {
-        const limit = id === "bright" || id === "moisture" ? MAX_QTY : id === "threshold" ? 9999999 : 99999;
-        $(id).value = Math.max(id === "unitPrice" ? 1 : 0, safeInt($(id).value, limit));
+    for(const id of ["bright","moisture","loosePrice","packPrice","discountPrice","threshold","shippingCost"]){
+      $(id).addEventListener("change",()=>{
+        const limit=id==="bright"||id==="moisture"?MAX_QTY:id==="threshold"?9999999:99999;
+        const min=["loosePrice","packPrice","discountPrice"].includes(id)?1:0;
+        $(id).value=Math.max(min,safeInt($(id).value,limit));
         update();
       });
     }
-    $("clear").addEventListener("click", () => { $("bright").value = 0; $("moisture").value = 0; update(); });
-    $("example").addEventListener("click", () => { $("bright").value = 2; $("moisture").value = 2; update(); });
+    $("clear").addEventListener("click",()=>{$("bright").value=0;$("moisture").value=0;update();});
+    $("example").addEventListener("click",()=>{$("bright").value=20;$("moisture").value=20;update();});
     $("messageBox").addEventListener("input", () => {
       $("copy").classList.remove("success");
       $("copy").textContent = "複製訊息";
